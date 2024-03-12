@@ -4,7 +4,7 @@ import { NotFound } from './pages/NotFound404'
 import { Hero } from './pages/hero/Hero'
 import { SignIn } from './pages/auth/SignIn'
 import { SignUp } from './pages/auth/SignUp'
-
+import { RegisterContact } from './pages/registerContact/RegisterContact'
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -20,6 +20,11 @@ export const router = createBrowserRouter([
     path: '/sign-up',
     element: <SignUp />,
     errorElement: <Error />,
+  },
+  {
+    path: '/register-contact',
+    element: <RegisterContact />,
+    errorElement: <Error/>
   },
   // },
   // {
