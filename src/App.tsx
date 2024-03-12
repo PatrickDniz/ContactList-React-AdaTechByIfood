@@ -1,9 +1,13 @@
-import { Button } from '@/components/ui/button'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes'
+import { ThemeProvider } from './components/theme/ThemeProvider'
 
 function App() {
   return (
     <>
-      <Button>teste</Button>
+      <ThemeProvider defaultTheme="dark" storageKey="DevContacts-theme">
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </>
   )
 }
