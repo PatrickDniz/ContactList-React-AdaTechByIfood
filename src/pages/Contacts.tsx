@@ -1,4 +1,5 @@
 import { ContactList } from '@/components/ContactList'
+import { SearchComponent } from '@/components/searchComponent'
 import { api } from '@/lib/axios'
 import { isAxiosError } from 'axios'
 import { useEffect } from 'react'
@@ -39,7 +40,7 @@ const Contacts = () => {
       <div className="w-100 flex items-center justify-center gap-4 bg-secondary py-8 text-2xl font-bold text-primary sm:text-4xl ">
         <BsPersonLinesFill /> Meus Contatos
       </div>
-      <div className="search"></div>
+      <SearchComponent />
       <ContactList />
       <button
         className="absolute bottom-8 right-8 cursor-pointer text-4xl text-foreground hover:text-primary sm:text-6xl"
