@@ -1,23 +1,24 @@
-// import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-// import { signUp } from '@/api/signUp'
+import { signUp } from '@/api/signUp'
 
 import { Button } from '@/components/ui/button'
 import { ImSpinner2 } from 'react-icons/im'
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
-import { toast } from 'sonner'
 import img from '@/assets/sign_up.svg'
 import { BsJournalCode } from 'react-icons/bs'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
+import { toast } from 'sonner'
+import { isAxiosError } from 'axios'
 
 const signUpFormSchema = z.object({
-  name: z.string().min(3, 'O nome deve conter pelo menos 3 caracteres'),
+  nome: z.string().min(3, 'O nome deve conter pelo menos 3 caracteres'),
   email: z.string().email('O email deve ser um email valido'),
-  password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+  senha: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
 })
 
 type SignUpForm = z.infer<typeof signUpFormSchema>
@@ -35,19 +36,18 @@ const SignUp = () => {
     resolver: zodResolver(signUpFormSchema),
   })
 
-  // const { mutateAsync: signUpFn } = useMutation({
-  //   mutationFn: signUp,
-  // })
+  const { mutateAsync: signUpFn } = useMutation({
+    mutationFn: signUp,
+  })
 
   async function handleSignUp(data: SignUpForm) {
     try {
       setIsLoading(true)
       await signUpFn({
-        name: data.name,
+        nome: data.nome,
         email: data.email,
-        password: data.password,
+        senha: data.senha,
       })
-
       setIsLoading(false)
       toast.success('Conta criada com sucesso!', {
         action: {
@@ -57,7 +57,14 @@ const SignUp = () => {
       })
     } catch (error) {
       setIsLoading(false)
-      toast.error('Erro ao criar conta. Tente novamente mais tarde!')
+      if (isAxiosError(error)) {
+        const status = error.response?.status
+        if (status === 409) {
+          toast.error('O email fornecido já está em uso.')
+        } else {
+          toast.error('Erro ao criar conta. Tente novamente mais tarde!')
+        }
+      }
     }
   }
   return (
@@ -97,7 +104,7 @@ const SignUp = () => {
                   type="text"
                   className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                   placeholder=" "
-                  {...register('name')}
+                  {...register('nome')}
                 />
                 <label
                   htmlFor="name"
@@ -105,9 +112,9 @@ const SignUp = () => {
                 >
                   Seu nome
                 </label>
-                {errors.name && (
+                {errors.nome && (
                   <span className="mt-2 text-xs text-destructive">
-                    {errors.name.message}
+                    {errors.nome.message}
                   </span>
                 )}
               </div>
@@ -144,7 +151,7 @@ const SignUp = () => {
                   className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                   placeholder=" "
                   autoComplete="new-password"
-                  {...register('password')}
+                  {...register('senha')}
                 />
                 <label
                   htmlFor="password"
@@ -158,14 +165,14 @@ const SignUp = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <MdOutlineVisibility />
-                  ) : (
                     <MdOutlineVisibilityOff />
+                  ) : (
+                    <MdOutlineVisibility />
                   )}
                 </button>
-                {errors.password && (
+                {errors.senha && (
                   <span className="mt-2 text-xs text-destructive">
-                    {errors.password.message}
+                    {errors.senha.message}
                   </span>
                 )}
               </div>
