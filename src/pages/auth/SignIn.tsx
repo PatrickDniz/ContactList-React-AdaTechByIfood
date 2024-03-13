@@ -1,9 +1,9 @@
-// import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
-// import { signIn } from '@/api/signIn'
+import { signIn } from '@/api/signIn'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
@@ -37,7 +37,7 @@ const SignIn = () => {
     },
   })
 
-  // const { mutateAsync: authenticate } = useMutation({ mutationFn: signIn })
+  const { mutateAsync: authenticate } = useMutation({ mutationFn: signIn })
 
   async function handleSignIn(data: SignInForm) {
     if (!data.email || !data.senha) {
@@ -49,7 +49,9 @@ const SignIn = () => {
         email: data.email,
         senha: data.senha,
       })
-      toast.success('Enviamos um link de autenticação para seu e-mail.')
+      toast.success('Login realizado com sucesso!')
+      // const { token } = data.token
+      // sessionStorage.setItem('devContactsToken', token)
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
@@ -124,9 +126,9 @@ const SignIn = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <MdOutlineVisibility />
-                  ) : (
                     <MdOutlineVisibilityOff />
+                  ) : (
+                    <MdOutlineVisibility />
                   )}
                 </button>
               </div>
