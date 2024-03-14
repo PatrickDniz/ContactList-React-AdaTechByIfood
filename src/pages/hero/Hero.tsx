@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 const Hero = () => {
   const { theme } = useTheme()
 
-  const particleColor = theme === 'dark' ? '#bae6fd' : '#0369a1'
+  const particleColor = theme === 'dark' ? '#ddd6fe' : '#6d28d9'
 
   return (
     <>
@@ -31,8 +31,8 @@ const Hero = () => {
           {/* Gradients */}
           <div className="absolute inset-x-20 top-0 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm" />
           <div className="absolute inset-x-20 top-0 h-px w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-          <div className="absolute inset-x-60 top-0 h-[5px] w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent blur-sm" />
-          <div className="absolute inset-x-60 top-0 h-px w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent" />
+          <div className="absolute inset-x-60 top-0 h-[5px] w-1/4 bg-gradient-to-r from-transparent via-violet-500 to-transparent blur-sm" />
+          <div className="absolute inset-x-60 top-0 h-px w-1/4 bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
 
           {/* Core component */}
           <SparklesCore

@@ -8,7 +8,7 @@ import { Toaster } from 'sonner'
 function App() {
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="DevContacts-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="devContacts-theme">
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
           <Toaster position="top-right" richColors />
