@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
-import { signIn } from '@/api/signIn'
+import { signIn } from '@/api/auth/signIn'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
@@ -24,6 +24,8 @@ type SignInForm = z.infer<typeof signInFormSchema>
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const navigate = useNavigate()
+  const [rememberMe, setRememberMe] = useState<boolean>(false)
   const [searchParams] = useSearchParams()
 
   const {
@@ -45,14 +47,19 @@ const SignIn = () => {
     }
     try {
       setIsLoading(true)
-      await authenticate({
+      const response = await authenticate({
         email: data.email,
         senha: data.senha,
       })
+      const token = response
+      if (rememberMe) {
+        localStorage.setItem('devContactsToken', token)
+      } else {
+        sessionStorage.setItem('devContactsToken', token)
+      }
       toast.success('Login realizado com sucesso!')
-      // const { token } = data.token
-      // sessionStorage.setItem('devContactsToken', token)
       setIsLoading(false)
+      navigate('/contacts')
     } catch (error) {
       setIsLoading(false)
       toast.error('Credenciais inválidas.')
@@ -142,7 +149,9 @@ const SignIn = () => {
                       aria-describedby="remember"
                       type="checkbox"
                       value=""
-                      className="h-3 w-3 rounded border text-primary accent-primary "
+                      className="h-3 w-3 rounded border text-primary accent-primary"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
                     />
                   </div>
                   <div className="ml-3 text-sm">

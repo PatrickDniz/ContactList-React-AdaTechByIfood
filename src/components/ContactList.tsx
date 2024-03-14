@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { FiEdit } from 'react-icons/fi'
 import { BsPersonDash } from 'react-icons/bs'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([])
@@ -24,9 +24,11 @@ const ContactList = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <div className="flex flex-1 flex-col justify-around text-lg font-bold">
-              <span>Contato</span>
-              <span className=' text-sm'>Telefone</span>
+            <div className="flex flex-1 flex-col justify-around">
+              <span className="text-lg font-bold">Contato</span>
+              <span className="text-sm">Telefone</span>
+              <span className="text-sm">Email</span>
+              <span className="text-sm">Stack</span>
             </div>
             <div className="flex flex-col gap-4 text-2xl">
               <div className="cursor-pointer hover:text-primary">

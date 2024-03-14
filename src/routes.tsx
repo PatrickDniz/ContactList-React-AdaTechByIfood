@@ -27,23 +27,6 @@ export const router = createBrowserRouter([
     element: <Contacts />,
     errorElement: <Error />,
   },
-  // },
-  // {
-  //   path: '/',
-  //   element: <AppLayout />,
-  //   errorElement: <Error />,
-  //   children: [
-  //     {
-  //       path: '/board',
-  //       element: <Board />,
-  //     },
-  //     {
-  //       path: '/team',
-  //       element: <Team />,
-  //       errorElement: <Error />,
-  //     },
-  //   ],
-  // },
   {
     path: '*',
     element: <NotFound />,

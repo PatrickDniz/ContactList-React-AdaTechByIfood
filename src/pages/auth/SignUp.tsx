@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { signUp } from '@/api/signUp'
+import { signUp } from '@/api/auth/signUp'
 
 import { Button } from '@/components/ui/button'
 import { ImSpinner2 } from 'react-icons/im'
