@@ -5,10 +5,10 @@ import { isAxiosError } from 'axios'
 import { useEffect } from 'react'
 import { BsPersonLinesFill, BsPersonAdd } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+import { ModalRegister } from './ModalRegister'
 
 const Contacts = () => {
   const navigate = useNavigate()
-
   useEffect(() => {
     const interceptor = api.interceptors.response.use(
       (response) => response,
@@ -41,13 +41,10 @@ const Contacts = () => {
         <BsPersonLinesFill /> Meus Contatos
       </div>
       <SearchComponent />
+      <div className="search"></div>
       <ContactList />
-      <button
-        className="absolute bottom-8 right-8 cursor-pointer text-4xl text-foreground hover:text-primary sm:text-6xl"
-        onClick={handleAddContact}
-      >
-        <BsPersonAdd />
-      </button>
+      <ModalRegister/>
+
     </>
   )
 }

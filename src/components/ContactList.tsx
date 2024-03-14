@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { FiEdit } from 'react-icons/fi'
 import { BsPersonDash } from 'react-icons/bs'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([])
@@ -19,10 +20,13 @@ const ContactList = () => {
         </div>
         <div className="my-4 flex flex-col justify-center gap-2">
           <a className="relative mx-auto flex w-11/12 items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground">
-            <span>img</span>
-            <div className="flex flex-1 flex-col justify-around text-2xl font-bold">
-              <span>contato</span>
-              <span>Telefone</span>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-1 flex-col justify-around text-lg font-bold">
+              <span>Contato</span>
+              <span className=' text-sm'>Telefone</span>
             </div>
             <div className="flex flex-col gap-4 text-2xl">
               <div className="cursor-pointer hover:text-primary">
