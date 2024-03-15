@@ -45,6 +45,7 @@ const ModalRegister: React.FC<ModalProps> = () => {
   const onSubmit = (formData: Data) => {
     const data: Data = { ...formData, telefones }
     registerContact(data)
+    setTelefones([])
     reset()
   }
   
