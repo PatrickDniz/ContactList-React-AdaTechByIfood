@@ -20,14 +20,14 @@ interface Data {
   email?: string;
   endereco?: Endereco;
   notas?: string;
-  foto?: string;
+  foto?: null | string | ArrayBuffer;
 }
 
 export async function registerContact(data: Data): Promise<void> {
   const token = getToken()
   const response = await api.post(
       '/contact',
-       data ,
+        data ,
       { headers:{Authorization: `${token}`}})
       .then((response) => {
         return response?.data
@@ -35,5 +35,5 @@ export async function registerContact(data: Data): Promise<void> {
       .catch((error) => {
         return error?.response?.data
       })
-   return response
+    return response
   }
