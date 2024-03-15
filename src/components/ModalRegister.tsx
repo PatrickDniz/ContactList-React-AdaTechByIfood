@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { useForm } from 'react-hook-form'
 import { BsPersonAdd } from 'react-icons/bs'
+import { useState } from 'react'
+import { registerContact } from '@/api/contact/registerContact'
 import {
   Dialog,
   DialogContent,
@@ -10,37 +12,45 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-interface Telephone {
-  tipo?: string
-  numero?: string
+interface Telefone {
+  tipo: 'casa' | 'trabalho' | 'celular';
+  numero: string;
 }
-
-interface Address {
-  logradouro?: string
-  cidade?: string
-  estado?: string
-  cep?: string
-  pais?: string
+interface Endereco {
+  logradouro: string;
+  cidade: string;
+  estado: string;
+  cep: string;
+  pais: string;
 }
 
 interface Data {
-  nome: string
-  stack: string
-  email: string
-  foto: string
-  telefones: Telephone[]
-  endereco?: Address
+  nome: string;
+  stack?: string;
+  telefones?: Telefone[];
+  email?: string;
+  endereco?: Endereco;
+  notas?: string;
+  foto?: string;
 }
 
 interface ModalProps {}
 
 const ModalRegister: React.FC<ModalProps> = () => {
   const { register, handleSubmit } = useForm<Data>()
+  const [telefones, setTelefones] = useState<Telefone[]>([]);
+  
 
   const onSubmit = (formData: Data) => {
-    console.log(formData)
+    const data: Data = { ...formData, telefones }
+    registerContact(data)
   }
-
+  
+  const addPhone  = (value: string) => {
+    if (value.trim() !== '') {
+      setTelefones([...telefones, { tipo: 'celular', numero: value.trim() }]);
+    }
+  };
   return (
     <>
       <Dialog>
@@ -77,12 +87,11 @@ const ModalRegister: React.FC<ModalProps> = () => {
                 </label>
               </div>
               <div className="relative z-0">
-                <input
-                  id="telefones"
-                  type="telefones"
-                  className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
-                  placeholder=" "
-                  {...register('telefones')}
+              <input
+                type="text"
+                {...register('telefones')}
+                onChange={(e) => addPhone (e.target.value)}
+                className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                 />
                 <label
                   htmlFor="telefones"
@@ -123,14 +132,13 @@ const ModalRegister: React.FC<ModalProps> = () => {
               </div>
               <div className="relative z-0 mx-auto">
                 <Button variant="outline" className="cursor-pointer text-sm">
-                  <label htmlFor="foto" className="hidden"></label>
+                  <label htmlFor="foto">Adicionar foto</label>
                   <input
                     id="foto"
                     type="file"
-                    {...register('foto')}
                     className="hidden"
+                    {...register('foto')}
                   />
-                  Adicionar foto
                 </Button>
               </div>
             </div>

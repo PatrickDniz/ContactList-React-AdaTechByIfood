@@ -5,10 +5,7 @@ import { ModalRegister } from '@/components/ModalRegister'
 import { MenuUser } from '@/components/MenuUser'
 
 const Contacts = () => {
-  const handleAddContact = () => {
-    console.log('adicionar')
-  }
-
+  
   return (
     <>
       <div className="w-100 flex items-center justify-center gap-4 bg-secondary pb-16 pt-8 text-2xl font-bold text-primary sm:text-4xl ">
