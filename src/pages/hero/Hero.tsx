@@ -12,16 +12,18 @@ const Hero = () => {
   return (
     <>
       <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-background">
-        <div className="fixed left-16 top-6">
-          <BsJournalCode className="h-8 w-8" />
-        </div>
-        <div className="fixed right-16 top-6">
-          <Button variant={'outline'}>
-            <Link to="/sign-in">Entrar</Link>
-          </Button>
-          <Button className="ml-4">
-            <Link to="/sign-up">Cadastrar</Link>
-          </Button>
+        <div className="fixed top-6 flex w-9/12 items-center justify-between">
+          <div>
+            <BsJournalCode className="h-8 w-8" />
+          </div>
+          <div>
+            <Button variant={'outline'}>
+              <Link to="/sign-in">Entrar</Link>
+            </Button>
+            <Button className="ml-4">
+              <Link to="/sign-up">Cadastrar</Link>
+            </Button>
+          </div>
         </div>
 
         <h1 className="relative z-20 text-center text-3xl font-bold text-foreground md:text-7xl lg:text-9xl">

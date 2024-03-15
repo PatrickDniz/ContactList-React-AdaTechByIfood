@@ -71,7 +71,7 @@ const SignUp = () => {
     <>
       <div className="grid h-screen grid-rows-[auto,1fr] overflow-hidden antialiased md:grid-cols-2">
         <div className="auto-rows-max md:col-span-2">
-          <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-2">
+          <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <Link
               to="/"
               className="flex items-center gap-3 text-lg text-foreground"
@@ -85,7 +85,7 @@ const SignUp = () => {
         <div className="hidden items-center justify-center md:flex">
           <img src={img} alt="" className="h-[600px] w-[600px]" />
         </div>
-        <div className="mx-auto flex w-[350px] flex-col justify-center gap-6">
+        <div className="mx-auto my-auto flex h-fit w-11/12 max-w-[600px] flex-col justify-center gap-6 rounded-xl border border-border px-4 py-12 shadow-lg shadow-border">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
               Criar conta grátis

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { FiEdit } from 'react-icons/fi'
 import { BsPersonDash } from 'react-icons/bs'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Separator } from '@/components/ui/separator'
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([])
@@ -12,12 +13,13 @@ const ContactList = () => {
   return (
     <>
       <div className="mx-auto my-4 w-10/12">
-        <div className="flex items-center gap-4 text-lg font-semibold text-primary sm:text-xl">
+        <div className="relative mt-12 flex items-center gap-4 text-lg font-semibold text-primary sm:text-xl">
           Contatos
-          <span className="rounded-full bg-foreground px-2">
+          <span className="rounded-full bg-secondary px-2 text-sm text-muted-foreground sm:text-lg">
             {contactsSize}
           </span>
         </div>
+        <Separator className="mb-8 mt-4 bg-border" />
         <div className="my-4 flex flex-col justify-center gap-2">
           <a className="relative mx-auto flex w-11/12 items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground">
             <Avatar>

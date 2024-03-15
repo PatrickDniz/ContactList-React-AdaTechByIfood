@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { IoMdClose, IoMdSearch } from 'react-icons/io'
+import { IoMdSearch } from 'react-icons/io'
 
 const SearchComponent = () => {
   const [search, setSearch] = useState('')
@@ -7,18 +7,15 @@ const SearchComponent = () => {
   const handleSearch = useCallback(() => {
     setHasSearch(true)
   }, [])
-  const clearSearch = useCallback(() => {
-    setSearch('')
-  }, [])
 
   return (
     <>
-      <div className="relative">
+      <div className="relative mx-auto mb-6 mt-[-1.5rem] h-9 w-10/12">
         <input
           id="search"
           type="text"
-          className=" h-9  min-w-14 appearance-none rounded-md  border-2 border-input
-          bg-transparent px-3 py-3 text-sm focus:border-primary focus:outline-none focus:ring-0"
+          className="h-12 w-full appearance-none rounded-md border-2 border-input bg-background
+           px-3 py-3 text-sm focus:border-primary focus:outline-none focus:ring-0"
           placeholder="Pesquisar pelo nome"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -27,22 +24,10 @@ const SearchComponent = () => {
         {search.length >= 3 && (
           <button
             type="button"
-            className="absolute right-6 top-3 flex items-center pr-2"
+            className="absolute right-0 top-2 flex h-8 w-8 items-center pr-2 text-4xl hover:text-primary"
             onClick={handleSearch}
           >
             <IoMdSearch />
-          </button>
-        )}
-        {search.length >= 3 && (
-          <button
-            type="button"
-            className="absolute right-0 top-3 flex items-center pr-2"
-            onClick={() => {
-              clearSearch()
-              setHasSearch(false)
-            }}
-          >
-            <IoMdClose />
           </button>
         )}
       </div>
