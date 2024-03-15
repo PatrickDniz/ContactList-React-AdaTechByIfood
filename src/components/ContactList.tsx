@@ -1,20 +1,19 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { EmptyComponent } from './EmptyContact'
 import { ContactCard } from './ContactCard'
-//import { getAllContacts } from '@/api/contact/getAllContacts'
-//import { useQuery } from '@tanstack/react-query'
+import { getAllContacts } from '@/api/contact/getAllContacts'
+import { useQuery } from '@tanstack/react-query'
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState([])
-  const [contactsSize, setContactsSize] = useState('')
-  /*
-  const {data: contactList, isLoading: isLoadingUser } = useQuery({
-    queryKey: ['contactList'],
+  const { data: contacts, isLoading: isLoadingContacts } = useQuery({
+    queryKey: ['contacts'],
     queryFn: getAllContacts,
     staleTime: Infinity,
-  })*/
-  useMemo(() => setContactsSize(contacts.length.toString()), [contacts])
+  })
+
+  const contactsSize = useMemo(() => contacts?.length ?? 0, [contacts])
+  console.log(contacts)
 
   return (
     <>
@@ -27,8 +26,18 @@ const ContactList = () => {
         </div>
         <Separator className="mb-8 mt-4 bg-border" />
         <div className="my-4 flex flex-col justify-center gap-2">
-          {contacts.length < 1 && <EmptyComponent />}
-          {contacts.length >= 1 && contacts.map((contact) => <ContactCard />)}
+          {isLoadingContacts ? (
+            <p>Carregando contatos...</p>
+          ) : contactsSize < 1 ? (
+            <EmptyComponent />
+          ) : (
+            contacts &&
+            contacts.map((contact) =>
+              contact && contact.id ? (
+                <ContactCard key={contact.id} {...contact} />
+              ) : null,
+            )
+          )}
         </div>
       </div>
     </>
