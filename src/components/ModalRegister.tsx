@@ -52,8 +52,11 @@ const ModalRegister: React.FC<ModalProps> = () => {
             <BsPersonAdd />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]">
-          <form className="rounded-md p-8" onSubmit={handleSubmit(onSubmit)}>
+        <DialogContent className="w-11/12 sm:max-w-[500px]">
+          <form
+            className="rounded-md p-2 sm:p-8"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <DialogHeader>
               <DialogTitle className="my-4">Adicionar Contato</DialogTitle>
             </DialogHeader>
@@ -118,7 +121,7 @@ const ModalRegister: React.FC<ModalProps> = () => {
                   Stack
                 </label>
               </div>
-              <div className="relative top-3 z-0">
+              <div className="relative z-0 mx-auto">
                 <Button variant="outline" className="cursor-pointer text-sm">
                   <label htmlFor="foto" className="hidden"></label>
                   <input
