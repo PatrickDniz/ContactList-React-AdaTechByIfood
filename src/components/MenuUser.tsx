@@ -35,7 +35,13 @@ const MenuUser = () => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src={user?.foto} />
+          <Avatar>
+            {user?.foto ? (
+              <AvatarImage src={`data:image/png;base64,${user.foto}`} />
+            ) : (
+              <AvatarFallback>CN</AvatarFallback>
+            )}
+          </Avatar>
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

@@ -2,11 +2,18 @@ import { useMemo, useState } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { EmptyComponent } from './EmptyContact'
 import { ContactCard } from './ContactCard'
+//import { getAllContacts } from '@/api/contact/getAllContacts'
+//import { useQuery } from '@tanstack/react-query'
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([])
   const [contactsSize, setContactsSize] = useState('')
-
+  /*
+  const {data: contactList, isLoading: isLoadingUser } = useQuery({
+    queryKey: ['contactList'],
+    queryFn: getAllContacts,
+    staleTime: Infinity,
+  })*/
   useMemo(() => setContactsSize(contacts.length.toString()), [contacts])
 
   return (
