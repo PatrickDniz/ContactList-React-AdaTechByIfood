@@ -4,17 +4,24 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { getUser } from '@/api/user/getUser'
 import { signOut } from '@/api/auth/signOut'
+import { LuSun, LuMoon } from 'react-icons/lu'
+import { useTheme } from './theme/ThemeProvider'
 
 const MenuUser = () => {
+  const { setTheme } = useTheme()
   const navigate = useNavigate()
 
   const { data: user, isLoading: isLoadingUser } = useQuery({
@@ -35,14 +42,11 @@ const MenuUser = () => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-          <Avatar>
-            {user?.foto ? (
-              <AvatarImage src={`data:image/png;base64,${user.foto}`} />
-            ) : (
-              <AvatarFallback>CN</AvatarFallback>
-            )}
-          </Avatar>
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage
+              src={
+                user && user.foto ? `data:image/png;base64,${user.foto}` : ''
+              }
+            />
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
@@ -73,6 +77,23 @@ const MenuUser = () => {
             <DropdownMenuItem>
               <span>Configurações</span>
             </DropdownMenuItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <span>Tema Dark/Light</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem onClick={() => setTheme('dark')}>
+                    <LuSun className="mr-2 h-4 w-4" />
+                    <span>Dark</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('light')}>
+                    <LuMoon className="mr-2 h-4 w-4" />
+                    <span>Light</span>
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>

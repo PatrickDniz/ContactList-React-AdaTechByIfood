@@ -2,26 +2,31 @@ import { FC } from 'react'
 import { BsPersonDash } from 'react-icons/bs'
 import { FiEdit } from 'react-icons/fi'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { GetContactResponse } from '@/api/contact/getAllContacts'
 
 interface IContactCardProps {
   nome: string
   telefone: string
   email: string
   stack: string
+  foto: string
 }
 
-const ContactCard: FC<IContactCardProps> = ({
+const getInitials = (nome) => {
+  return nome ? nome.charAt(0).toUpperCase() : ''
+}
+const ContactCard: FC<GetContactResponse> = ({
   nome,
   telefone,
   email,
   stack,
+  foto,
 }) => {
   return (
     <div className="flex w-full items-center rounded-lg border bg-card p-4 text-card-foreground">
       <div className="flex w-1/5 items-center justify-center">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={`data:image/png;base64,${foto}`} />
         </Avatar>
       </div>
       <div className="flex w-3/5 flex-col justify-around">

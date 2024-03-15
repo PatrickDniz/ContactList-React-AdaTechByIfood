@@ -13,44 +13,43 @@ import {
 } from '@/components/ui/dialog'
 
 interface Telefone {
-  tipo: 'casa' | 'trabalho' | 'celular';
-  numero: string;
+  tipo: 'casa' | 'trabalho' | 'celular'
+  numero: string
 }
 interface Endereco {
-  logradouro: string;
-  cidade: string;
-  estado: string;
-  cep: string;
-  pais: string;
+  logradouro: string
+  cidade: string
+  estado: string
+  cep: string
+  pais: string
 }
 
 interface Data {
-  nome: string;
-  stack?: string;
-  telefones?: Telefone[];
-  email?: string;
-  endereco?: Endereco;
-  notas?: string;
-  foto?: string;
+  nome: string
+  stack?: string
+  telefones?: Telefone[]
+  email?: string
+  endereco?: Endereco
+  notas?: string
+  foto?: string
 }
 
 interface ModalProps {}
 
 const ModalRegister: React.FC<ModalProps> = () => {
   const { register, handleSubmit } = useForm<Data>()
-  const [telefones, setTelefones] = useState<Telefone[]>([]);
-  
+  const [telefones, setTelefones] = useState<Telefone[]>([])
 
   const onSubmit = (formData: Data) => {
     const data: Data = { ...formData, telefones }
     registerContact(data)
   }
-  
-  const addPhone  = (value: string) => {
+
+  const addPhone = (value: string) => {
     if (value.trim() !== '') {
-      setTelefones([...telefones, { tipo: 'celular', numero: value.trim() }]);
+      setTelefones([...telefones, { tipo: 'celular', numero: value.trim() }])
     }
-  };
+  }
   return (
     <>
       <Dialog>
@@ -87,11 +86,11 @@ const ModalRegister: React.FC<ModalProps> = () => {
                 </label>
               </div>
               <div className="relative z-0">
-              <input
-                type="text"
-                {...register('telefones')}
-                onChange={(e) => addPhone (e.target.value)}
-                className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
+                <input
+                  type="text"
+                  {...register('telefones')}
+                  onChange={(e) => addPhone(e.target.value)}
+                  className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                 />
                 <label
                   htmlFor="telefones"
