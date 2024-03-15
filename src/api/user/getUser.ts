@@ -4,8 +4,8 @@ import { getToken } from '@/hooks/useAuthToken'
 export interface GetUserResponse {
   data: {
     id: string
-    nome: string
     email: string
+    nome: string
     foto: string
   }
   status: number

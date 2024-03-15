@@ -5,42 +5,41 @@ import { useState } from 'react'
 import { registerContact } from '@/api/contact/registerContact'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose
 } from '@/components/ui/dialog'
 
 interface Telefone {
-  tipo: 'casa' | 'trabalho' | 'celular';
-  numero: string;
+  tipo: 'casa' | 'trabalho' | 'celular'
+  numero: string
 }
 interface Endereco {
-  logradouro: string;
-  cidade: string;
-  estado: string;
-  cep: string;
-  pais: string;
+  logradouro: string
+  cidade: string
+  estado: string
+  cep: string
+  pais: string
 }
 
 interface Data {
-  nome: string;
-  stack?: string;
-  telefones?: Telefone[];
-  email?: string;
-  endereco?: Endereco;
-  notas?: string;
-  foto?: string;
+  nome: string
+  stack?: string
+  telefones?: Telefone[]
+  email?: string
+  endereco?: Endereco
+  notas?: string
+  foto?: string
 }
 
 interface ModalProps {}
 
 const ModalRegister: React.FC<ModalProps> = () => {
   const { register, handleSubmit, reset } = useForm<Data>()
-  const [telefones, setTelefones] = useState<Telefone[]>([]);
-  
+  const [telefones, setTelefones] = useState<Telefone[]>([])
 
   const onSubmit = (formData: Data) => {
     const data: Data = { ...formData, telefones }
@@ -48,12 +47,24 @@ const ModalRegister: React.FC<ModalProps> = () => {
     setTelefones([])
     reset()
   }
-  
-  const addPhone  = (value: string) => {
+
+  const addPhone = (value: string) => {
     if (value.trim() !== '') {
-      setTelefones([...telefones, { tipo: 'celular', numero: value.trim() }]);
+      const existingPhoneIndex = telefones.findIndex(
+        (phone) => phone.tipo === 'celular',
+      )
+      if (existingPhoneIndex !== -1) {
+        const updatedTelefones = [...telefones]
+        updatedTelefones[existingPhoneIndex] = {
+          tipo: 'celular',
+          numero: value.trim(),
+        }
+        setTelefones(updatedTelefones)
+      } else {
+        setTelefones([...telefones, { tipo: 'celular', numero: value.trim() }])
+      }
     }
-  };
+  }
   return (
     <>
       <Dialog>
@@ -77,7 +88,7 @@ const ModalRegister: React.FC<ModalProps> = () => {
               <div className="relative z-0">
                 <input
                   id="nome"
-                  type="nome"
+                  type="text"
                   className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                   placeholder=" "
                   {...register('nome')}
@@ -90,11 +101,13 @@ const ModalRegister: React.FC<ModalProps> = () => {
                 </label>
               </div>
               <div className="relative z-0">
-              <input
-                type="text"
-                {...register('telefones')}
-                onChange={(e) => addPhone (e.target.value)}
-                className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
+                <input
+                  type="tel"
+                  id="telefones"
+                  placeholder=" "
+                  {...register('telefones')}
+                  onChange={(e) => addPhone(e.target.value)}
+                  className="peer block h-9 w-full appearance-none border-0 border-b-2 border-input bg-transparent px-0 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-0"
                 />
                 <label
                   htmlFor="telefones"
@@ -135,7 +148,9 @@ const ModalRegister: React.FC<ModalProps> = () => {
               </div>
               <div className="relative z-0 mx-auto">
                 <Button variant="outline" className="cursor-pointer text-sm">
-                  <label htmlFor="foto">Adicionar foto</label>
+                  <label htmlFor="foto" className="cursor-pointer">
+                    Adicionar foto
+                  </label>
                   <input
                     id="foto"
                     type="file"
@@ -146,9 +161,9 @@ const ModalRegister: React.FC<ModalProps> = () => {
               </div>
             </div>
             <DialogFooter>
-            <DialogClose asChild>
-              <Button type="submit">Adicionar contato</Button>
-            </DialogClose>
+              <DialogClose asChild>
+                <Button type="submit">Adicionar contato</Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </DialogContent>
