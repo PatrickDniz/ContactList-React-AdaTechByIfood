@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose
 } from '@/components/ui/dialog'
 
 interface Telefone {
@@ -37,13 +38,14 @@ interface Data {
 interface ModalProps {}
 
 const ModalRegister: React.FC<ModalProps> = () => {
-  const { register, handleSubmit } = useForm<Data>()
+  const { register, handleSubmit, reset } = useForm<Data>()
   const [telefones, setTelefones] = useState<Telefone[]>([]);
   
 
   const onSubmit = (formData: Data) => {
     const data: Data = { ...formData, telefones }
     registerContact(data)
+    reset()
   }
   
   const addPhone  = (value: string) => {
@@ -143,7 +145,9 @@ const ModalRegister: React.FC<ModalProps> = () => {
               </div>
             </div>
             <DialogFooter>
+            <DialogClose asChild>
               <Button type="submit">Adicionar contato</Button>
+            </DialogClose>
             </DialogFooter>
           </form>
         </DialogContent>
