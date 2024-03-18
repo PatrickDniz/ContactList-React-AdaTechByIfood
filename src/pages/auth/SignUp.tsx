@@ -34,6 +34,7 @@ const SignUp = () => {
     formState: { isSubmitting, errors },
   } = useForm<SignUpForm>({
     resolver: zodResolver(signUpFormSchema),
+    mode: 'onChange',
   })
 
   const { mutateAsync: signUpFn } = useMutation({
@@ -48,7 +49,6 @@ const SignUp = () => {
         email: data.email,
         senha: data.senha,
       })
-      setIsLoading(false)
       toast.success('Conta criada com sucesso!', {
         action: {
           label: 'Entrar',
@@ -56,7 +56,6 @@ const SignUp = () => {
         },
       })
     } catch (error) {
-      setIsLoading(false)
       if (isAxiosError(error)) {
         const status = error.response?.status
         if (status === 409) {
@@ -65,6 +64,8 @@ const SignUp = () => {
           toast.error('Erro ao criar conta. Tente novamente mais tarde!')
         }
       }
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
@@ -188,24 +189,24 @@ const SignUp = () => {
               ) : null}
               Finalizar Cadastro
             </Button>
-
-            <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
-              Ao continuar, você concorda com nossos{' '}
-              <a
-                href=""
-                className="font-medium text-primary underline-offset-4 hover:underline"
-              >
-                termos de serviço
-              </a>{' '}
-              e{' '}
-              <a
-                href=""
-                className="font-medium text-primary underline-offset-4 hover:underline"
-              >
-                políticas de privacidade.
-              </a>
-            </p>
           </form>
+
+          <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
+            Ao continuar, você concorda com nossos{' '}
+            <a
+              href=""
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              termos de serviço
+            </a>{' '}
+            e{' '}
+            <a
+              href=""
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              políticas de privacidade.
+            </a>
+          </p>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
