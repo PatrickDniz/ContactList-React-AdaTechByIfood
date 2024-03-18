@@ -58,11 +58,11 @@ const SignIn = () => {
         sessionStorage.setItem('devContactsToken', token)
       }
       toast.success('Login realizado com sucesso!')
-      setIsLoading(false)
       navigate('/contacts')
     } catch (error) {
-      setIsLoading(false)
       toast.error('Credenciais inválidas.')
+    } finally {
+      setIsLoading(false)
     }
   }
 

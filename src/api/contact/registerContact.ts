@@ -1,11 +1,12 @@
 import { api } from '@/lib/axios'
 import { getToken } from '@/hooks/useAuthToken'
 
-interface Telefone {
+export interface Telefone {
   tipo: 'casa' | 'trabalho' | 'celular'
   numero: string
 }
-interface Endereco {
+
+export interface Endereco {
   logradouro: string
   cidade: string
   estado: string
@@ -13,25 +14,21 @@ interface Endereco {
   pais: string
 }
 
-interface Data {
+export interface ContatoBody {
   nome: string
   stack?: string
   telefones?: Telefone[]
   email?: string
   endereco?: Endereco
   notas?: string
-  foto?: null | string | ArrayBuffer
+  foto?: string
 }
 
-export async function registerContact(data: Data): Promise<void> {
+export async function registerContact(contato: ContatoBody) {
   const token = getToken()
-  const response = await api
-    .post('/contact', data, { headers: { Authorization: `${token}` } })
-    .then((response) => {
-      return response?.data
-    })
-    .catch((error) => {
-      return error?.response?.data
-    })
-  return response
+  await api.post('/contact', contato, {
+    headers: {
+      Authorization: `${token}`,
+    },
+  })
 }

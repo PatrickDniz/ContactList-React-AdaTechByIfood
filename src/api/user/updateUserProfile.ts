@@ -9,16 +9,18 @@ export interface User {
   foto?: string
 }
 
-export interface GetUserResponse {
+export interface UpdateUserResponse {
   data: User
   status: number
 }
 
-export async function getUser() {
+export async function updateUserProfile(
+  data: User,
+): Promise<UpdateUserResponse> {
   const token = getToken()
-  const response = await api.get<GetUserResponse>('/user', {
+  const response = await api.patch(`/user`, data, {
     headers: {
-      Authorization: `${token}`,
+      Authorization: token,
     },
   })
   return response.data.data

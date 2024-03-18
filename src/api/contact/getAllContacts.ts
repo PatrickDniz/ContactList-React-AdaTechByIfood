@@ -2,32 +2,32 @@ import { api } from '@/lib/axios'
 import { getToken } from '@/hooks/useAuthToken'
 
 export interface Telefone {
-    tipo?: 'casa' | 'trabalho' | 'celular';
-    numero?: string;
-  }
+  tipo?: 'casa' | 'trabalho' | 'celular'
+  numero?: string
+}
 
 export interface Endereco {
-    logradouro?: string;
-    cidade?: string;
-    estado?: string;
-    cep?: string;
-    pais?: string;
-  }
+  logradouro?: string
+  cidade?: string
+  estado?: string
+  cep?: string
+  pais?: string
+}
 
 export interface Contato {
   id: string
   nome?: string
-  idUsuario:string
-  stack?:string
+  idUsuario: string
+  stack?: string
   email?: string
-  notas?:string
+  notas?: string
   foto?: string
-  telefones?: Telefone[];
-  endereco?: Endereco;
+  telefones?: Telefone[]
+  endereco?: Endereco
 }
-  
+
 export interface GetContactResponse {
-  data: Contato [],
+  data: Contato[]
   status: number
 }
 
